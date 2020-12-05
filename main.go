@@ -9,7 +9,6 @@ import (
 )
 
 var (
-	d = flag.String("d", ".", "Directory to process")
 	a = flag.Bool("a", false, "Print all info")
 )
 
@@ -25,7 +24,11 @@ func printAll(file os.FileInfo) {
 
 func main() {
 	flag.Parse()
-	files, _ := ioutil.ReadDir(*d)
+	dir := "."
+	if flag.NArg() >= 1 {
+		dir = flag.Arg(0)
+	}
+	files, _ := ioutil.ReadDir(dir)
 
 	for _, file := range files {
 		if *a {
